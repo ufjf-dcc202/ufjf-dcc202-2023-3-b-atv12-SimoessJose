@@ -1,3 +1,5 @@
+import { getEstoque, trasacao } from "./estoque.js";
+
 const olJoao = document.querySelector("ol#joao");
 const olMaria = document.querySelector("ol#maria");
 
@@ -8,13 +10,18 @@ atualizaTela();
 function leFormulario(event){
 
     event.preventDefault();
-    const quantidade = document.entrada.quantidade.value;
-    valueAsNumber;
+    const quantidade = document.entrada.quantidade.valueAsNumber;
     const fruta = document.entrada.fruta.value;
-    const origin = document.entrada.origem.value;
+    const origem = document.entrada.origem.value;
     const destino = document.entrada.destino.value;
 
     console.log(`${origem} doa ${quantidade} ${fruta} para ${destino}`);
+
+    trasacao(origem, destino, fruta, quantidade);
+    atualizaTela();
+    // document.entrada.submit();
+}
+
 
     function atualizaTela(){
         const estoque = getEstoque();
@@ -23,7 +30,7 @@ function leFormulario(event){
 
     }
 
-    function preencheLista (lista, estoque) {
+    function preencheLista (lista, estoqueDaPessoa) {
         lista.innerHTML = "";
         for(let i=0; i<estoqueDaPessoa.length; i++){
             const monte = estoqueDaPessoa[i];
@@ -34,4 +41,3 @@ function leFormulario(event){
 
     }
 
-}

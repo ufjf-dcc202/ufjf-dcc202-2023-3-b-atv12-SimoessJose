@@ -4,7 +4,7 @@ let estoque = {
         {'tipo': 'pera', 'qtd':2}
         ],
      'maria': [
-                {'tipo':'pera', 'qtd': 2},
+                {'tipo':'maca', 'qtd': 2},
                 {'tipo': 'banana', 'qtd':4}
     ]
 }
@@ -14,4 +14,26 @@ function getEstoque(){
     return structuredClone(estoque);
 }
 
-export {getEstoque};
+function trasacao(origem, destino, tipo, quantidade){
+    if(destino === "pomar"){
+        const pessoa = estoque[origem];
+        for(let i=0; i<pessoa.length; i++){
+            const monte = pessoa[i];
+            if(monte.tipo === tipo){
+                monte.qtd -= Math.min(quantidade, monte.qtd);
+            }
+        }
+    }
+    if(destino === "pomar"){
+        const pessoa = estoque[origem];
+        for(let i=0; i<pessoa.length; i++){
+            const monte = pessoa[i];
+            if(monte.tipo === tipo){
+                monte.qtd += Math.max(quantidade, 0);
+            }
+        }
+    }
+
+}
+
+export {getEstoque, trasacao};
