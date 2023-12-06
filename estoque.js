@@ -24,16 +24,53 @@ function trasacao(origem, destino, tipo, quantidade){
             }
         }
     }
+
     if(destino === "pomar"){
         const pessoa = estoque[origem];
         for(let i=0; i<pessoa.length; i++){
             const monte = pessoa[i];
             if(monte.tipo === tipo){
                 monte.qtd += Math.max(quantidade, 0);
+                return;
             }
         }
+
+        const novoMonte = {'tipo': tipo, 'qtd': Math.max(quantidade, 0)};
+        pessoa.push(novoMonte);
     }
 
 }
+
+function dePessoaParaPomar(origem, tipo, quantidade){
+    const pessoa = estoque[origem];
+    for(let i=0; i<pessoa.length; i++){
+        const monte = pessoa[i];
+        if(monte.tipo === tipo){
+            monte.qtd += Math.min(quantidade, monte.qtd);
+            return;
+        }
+    }
+
+    const novoMonte = {'tipo': tipo, 'qtd': Math.max(quantidade, 0)};
+    pessoa.push(novoMonte);
+}
+
+
+function dePomarParaPessoa(){
+      const pessoa = estoque[origem];
+        for(let i=0; i<pessoa.length; i++){
+            const monte = pessoa[i];
+            if(monte.tipo === tipo){
+                monte.qtd += Math.max(quantidade, 0);
+                return;
+            }
+        }
+
+        const novoMonte = {'tipo': tipo, 'qtd': Math.max(quantidade, 0)};
+        pessoa.push(novoMonte);
+    }
+
+
+
 
 export {getEstoque, trasacao};
